@@ -1,0 +1,25 @@
+
+<div class="part-details">
+  <h1><%= @part.name %></h1>
+  
+  <div class="part-info">
+    <p>Brand: <%= @part.brand %></p>
+    <p>Price: <%= number_to_currency(@part.price) %></p>
+    <p>Category: <%= @part.category %></p>
+    <p>Year: <%= @part.year %></p>
+  </div>
+
+  <div class="description">
+    <h2>Description</h2>
+    <p><%= @part.description %></p>
+  </div>
+
+  <div>
+      <% if @part.image != nil %>
+        <%= image_tag(@part.image, style: "width: 500px") %>
+      <% end %>
+  </div>
+
+<%= link_to "Add to Cart", nil, class: "btn btn-secondary" %>
+
+<%= link_to "Back to Marketplace", marketplace_path, class: "btn btn-secondary" %>

@@ -1,0 +1,30 @@
+<h1>Edit Order</h1>
+
+<%= form_with(model: @order, local: true) do |form| %>
+  <% if @order.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@order.errors.count, "error") %> prohibited this order from being saved:</h2>
+      <ul>
+        <% @order.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div>
+    <%= form.label :total_price %>
+    <%= form.text_field :total_price, value: @order.total_price %>
+  </div>
+
+  <div>
+    <%= form.label :status %>
+    <%= form.text_field :status, value: @order.status %>
+  </div>
+
+  <div>
+    <%= form.submit %>
+  </div>
+<% end %>
+
+<%= link_to 'Back to Orders', orders_path %>

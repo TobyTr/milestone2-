@@ -1,0 +1,14 @@
+<h1><%= @build_item.part.name %></h1>
+
+<p>
+    <strong>Quantity:</strong>
+    <%= @build_item.quantity %>
+</p>
+
+<p>
+    <strong>Slot:</strong>
+    <%= @build_item.slot %>
+</p>
+
+<%= link_to 'Edit', edit_build_build_item_path(@build, @build_item), class: "btn btn-secondary" %>
+<%= link_to 'Back', build_path(@build), class: "btn btn-secondary" %>

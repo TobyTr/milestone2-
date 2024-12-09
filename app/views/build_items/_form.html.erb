@@ -1,0 +1,30 @@
+<%= form_with(model: build_item, local: true) do |f| %>
+    <% if build_item.errors.any? %>
+        <div id="error_explanation">
+            <h2><%= pluralize(build_item.errors.count, "error") %> prohibited this build item from being saved:</h2>
+            <ul>
+                <% build_item.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                <% end %>
+            </ul>
+        </div>
+    <% end %>
+
+    <div class="field">
+        <%= f.label :quantity %>
+        <%= f.number_field :quantity %>
+    </div>
+
+    <div class="field">
+        <%= f.label :quantity %>
+        <%=  f.text_field :slot %>
+    </div>
+
+    <div class="field">
+        <%= f.hidden_field :build_id, value: @build.id %>
+    </div>
+
+    <div class="actions">
+        <%= f.submit %>
+    </div>
+<% end %>

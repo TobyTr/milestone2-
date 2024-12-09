@@ -1,0 +1,11 @@
+<h1>Payment:</h1>
+
+<p>Card Number: <%= @payment.cardNumber %></p>
+
+<p>CVV: <%= @payment.cvv %></p>
+
+<p>Exp. Date: <%= @payment.expDate %></p>
+
+<p>Price: $<%= @payment.price %></p>
+
+<%= link_to 'Back to Order', orders_path%>

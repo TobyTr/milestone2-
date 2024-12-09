@@ -1,0 +1,12 @@
+<h1>Send Message</h1>
+
+<%= bootstrap_form_with model: @message, url: messages_path, method: :post, data: { turbo: false } do |form| %>
+  <%= form.hidden_field :recipient_id, value: @recipient.id %>
+
+  <%= form.label :content, "Message Content" %>
+  <%= form.text_area :content, rows: 5, placeholder: "Write your message here" %>
+
+  <%= form.submit "Send Message" %>
+<% end %>
+
+<%= link_to 'Back', message_path(id: @recipient.id, recipient_id: @recipient.id), class: "btn btn-secondary" %>

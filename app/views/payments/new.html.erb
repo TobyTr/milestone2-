@@ -1,0 +1,20 @@
+<h1>New Payment</h1>
+
+<%= bootstrap_form_with model: [@order, @payment], method: :post, url: order_payment_path(@order), data: { turbo: false } do |f| %>
+  <%= f.number_field :cardNumber, label: 'Card Number', placeholder: '1111222233334444'%>
+
+  <%= f.number_field :cvv, 
+      label: 'CVV',
+      placeholder: '123' %>
+      
+  <%= f.text_field :expDate, 
+      label: 'Expiration Date',
+      placeholder: '1231' %>
+
+  <%= f.number_field :price, 
+  value: @order.total_amount %>
+  
+  <%= f.submit 'Process Payment', class: 'btn btn-primary' %>
+<% end %>
+
+<%= link_to 'Back', order_path(@order), class: "btn btn-secondary" %>

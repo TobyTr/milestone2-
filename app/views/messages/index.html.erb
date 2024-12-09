@@ -1,0 +1,14 @@
+<h1>Your Conversations</h1>
+
+<% if @conversations.any? %>
+  <% @conversations.each do |recipient| %>
+    <div>
+      <p>
+        <strong>Conversation with:</strong> <%= recipient.email %>
+        <%= link_to 'View Messages', message_path(id: recipient.id, recipient_id: recipient.id) %>
+      </p>
+    </div>
+  <% end %>
+<% else %>
+  <p>You have no conversations yet.</p>
+<% end %>

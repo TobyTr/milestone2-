@@ -1,0 +1,34 @@
+<h1>Build Items</h1>
+
+<% if @build.creator == current_user %>
+    <%= link_to 'New Build Item', new_build_build_item_path(@build), class: "btn btn-sm btn-outline-secondary" %>
+<% end %>
+
+<table class="table table-striped table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>Quantity</th>
+            <th>Slot</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @build_items.each do |build_item| %>
+            <tr>
+                <td><%= build_item.quantity %></td>
+                <td><%= build_item.slot %></td>
+                <td>
+                    <%= link_to 'Show', build_build_item_path(@build, build_item), class: "btn btn-sm btn-outline-secondary" %>
+                    <% if @build.creator == current_user %>
+                        <%= link_to 'Edit', edit_build_build_item_path(@build, build_item), class: "btn btn-sm btn-outline-secondary" %>
+                        <%= button_to 'Delete', build_build_item_path(@build, build_item), method: :delete, data: { turbo: false }, class: "btn btn-sm btn-outline-secondary", form: { class: 'd-inline' } %>
+                    <% end %>
+                </td>
+            </tr>
+        <% end %>
+    </tbody>
+</table>
+
+<p>
+    <%= link_to 'Back to build', build_path(@build), class: "btn btn-sm btn-outline-secondary" %>
+</p>

@@ -1,0 +1,44 @@
+<!-- Navigation Bar -->
+<nav class="navbar">
+    <div class="navbar-logo">PC Part Picker</div>
+    <ul class="navbar-links" id="navbarLinks">
+        <li><%= link_to 'Home', home_path, class: "nav-link" %></li>  <%# root_path %>
+        <li><%=link_to 'Order', orders_path, class: "nav-link"%></li>
+        <%# <><%= link_to 'Sign In', nil, class: "nav-link" %>
+        <li>
+          <% if user_signed_in? %>
+            <li class="nav-link">
+              <%= link_to "#{current_user.email}", current_user, class: "nav-link btn btn-link" %>
+            </li>
+
+            <li class="nav-link">
+              <%= button_to 'Sign Out', destroy_user_session_path, method: :delete, data: { turbo: false }, class: 'nav-link btn btn-link', form: { class: 'd-inline' } %>
+            </li>
+          <% else %>
+            <li class="nav-link">
+              <%= link_to 'Sign In', new_user_session_path, class: "nav-link #{active_class(new_user_session_path)} btn btn-link" %>
+            </li>
+
+            <li class="nav-link">
+              <%= link_to 'Sign Up', new_user_registration_path, class: "nav-link #{active_class(new_user_registration_path)} btn btn-link" %>
+            </li>
+          <% end %>
+        </li>
+    
+    <li class="dropdown">
+        <a href="#" class="nav-link dropdown-toggle" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
+            Dropdown
+        </a>
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+            <li><%= link_to 'Market', marketplace_path, class: "nav-link" %></li>
+            <li><%= link_to 'Builds', builds_path, class: "nav-link" %></li>
+            <li><%= link_to 'Messages', messages_path, class: "nav-link" %></li>
+            <li><%= link_to 'Gallery', nil, class: "nav-link" %></li>
+        </ul>
+    </li>
+
+    </ul>
+    <button class="navbar-toggle" id="navbarToggle">
+        <span class="toggle-icon">&#9776;</span>
+    </button>
+</nav>

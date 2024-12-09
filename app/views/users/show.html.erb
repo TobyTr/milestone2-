@@ -1,0 +1,27 @@
+<h3>My name is <%= @user.email %>, I post all my favorite builds!</h3>
+
+<% if @user == current_user %>
+    <p><%= link_to "Edit Profile", edit_user_registration_path, class: "#{active_class(edit_user_registration_path)} btn btn-secondary" %></p>
+    <p><%= link_to 'View your messages', messages_path, class: "btn btn-secondary" %></p>
+<% else %>
+    <p><%= link_to 'Send Message', new_message_path(recipient_id: @user.id) %></p>
+<% end %>
+
+<table class="table table-striped table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @builds.each do |build| %>
+            <% if build.published == true %>
+                <tr>
+                    <td><%= build.name %> </td>
+                    <td><%= build.description %> </td>
+                </tr>
+            <% end %>
+        <% end %>
+    </tbody>
+</table>

@@ -1,0 +1,92 @@
+<%# # app/views/marketplace/index.html.erb %>
+<%# Use claude to help format the search and filters  %>
+
+<h1 style="center" >PC Parts Marketplace</h1>
+
+<div class="search">
+  <%= form_tag marketplace_path, method: :get, class: "d-flex" do %>
+    <%= text_field_tag :search, params[:search], 
+        class: "form-control me-2",
+        placeholder: "Search parts..." %>
+    <%= submit_tag "Search", class: "btn btn-primary" %>
+  <% end %>
+</div>
+
+<div class="filters">
+  <h5>Filters</h5>
+  <%= form_tag marketplace_path, method: :get, id: "filter-form" do %>
+    <div class="filter-section">
+
+      <%# Categories filter %>
+      <h6>Categories</h6>
+      <% Part::CATEGORIES.each do |category| %>
+        <div class="form-check">
+          <%= check_box_tag "category[]", category, 
+              params[:category]&.include?(category),
+              class: "form-check-input" %>
+          <%= label_tag "category_#{category.parameterize}", 
+              category, 
+              class: "form-check-label" %>
+        </div>
+      <% end %>
+    </div>
+
+    <%# Price range filter %>
+    <div class="filter-section">
+      <h6>Price Range</h6>
+      <div class="price-range">
+        <%= number_field_tag :min_price, params[:min_price],
+            class: "form-control",
+            placeholder: "Min" %>
+        <span>-</span>
+        <%= number_field_tag :max_price, params[:max_price],
+            class: "form-control",
+            placeholder: "Max" %>
+      </div>
+    </div>
+
+    <div class="filter-actions">
+      <%= submit_tag "Apply Filters", class: "btn btn-primary w-100" %>
+      <%= link_to "Clear Filters", marketplace_path, class: "btn btn-outline-secondary w-100 mt-2" %>
+    </div>
+  <% end %>
+</div>
+
+<div class="parts-grid">
+  <% @parts.each do |part| %>
+    <div class="card">
+      <div class="container">
+        <h2><%= part.name %></h2>
+        <p>Brand: <%= part.brand %></p>
+        <p>Price: <%= number_to_currency(part.price) %></p>
+        <p>Category: <%= part.category %></p>
+        <p>Year: <%= part.year %></p>
+        <%= link_to "View Details", part_path(part), class: "view-details-button" %>
+        <%# need a form that tells us what build to use, submitting the form goes to a controller action which creates a build item record, that controller action will need the parts id and the build from the form, and in controller action you know what the %>
+        <% if params[:from_build].present? %>
+          <%= bootstrap_form_with model: @build_item, url: build_items_url, method: :post, data: { turbo: false } do |f| %>
+            <%= f.collection_select :build_id, Build.all, :id, :name %>
+            <%= f.hidden_field :part_id, :value => part.id %>
+            <%= f.hidden_field :quantity, :value => 1 %>
+            <%= f.hidden_field :slot, :value => part.category %>
+            <%= f.submit %>
+          <% end %>
+        <% end %>
+
+      </div>
+    </div>
+  <% end %>
+</div>
+
+<%# Page pagination, only `Next` and `Previous` %>
+<div class="btn-toolbar justify-content-center" role="toolbar" aria-label="Pagination toolbar">
+  <div class="btn-group me-2" role="group" aria-label="Pagination controls">
+    <% if !@parts.first_page? %>
+      <%= link_to_prev_page @parts, 'Previous Page', class: 'btn btn-secondary' %>
+    <% end %>
+    
+    <% if !@parts.last_page? %>
+      <%= link_to_next_page @parts, 'Next Page', class: 'btn btn-secondary' %>
+    <% end %>
+  </div>
+</div>

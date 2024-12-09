@@ -1,0 +1,31 @@
+<%= form_with model: build, local: true do |f| %>
+    <% if build.errors.any? %>
+        <div id="error_explanation">
+            <h2><%= pluralize(build.errors.count, "error") %> prohibited this build from being saved:</h2>
+            <ul>
+                <% build.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                <% end %>
+            </ul>
+        </div>
+    <% end %>
+
+    <div class="field">
+        <%= f.label :name %>
+        <%= f.text_field :name %>
+    </div>
+
+    <div class="field">
+        <%= f.label :description %>
+        <%= f.text_area :description %>
+    </div>
+
+    <div class="field">
+        <%= f.label :published %>
+        <%= f.check_box :published %>
+    </div>
+
+    <div class="actions">
+        <%= f.submit %>
+    </div>
+<% end %>

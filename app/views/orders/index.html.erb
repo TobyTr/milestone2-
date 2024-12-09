@@ -1,0 +1,36 @@
+<h1>Orders</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Total Price</th>
+      <th>Status</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @orders.each do |order| %>
+      <tr>
+        <td><%= order.id %></td>
+        <td><%= number_to_currency(order.total_price) %></td>
+        <td><%= order.status %></td>
+        <td>
+          <%= link_to 'Show', order_path(order) %> |
+          <%= link_to 'Edit', edit_order_path(order) %> |
+          <%= link_to 'Destroy', order_path(order), method: :delete, data: { confirm: 'Are you sure?' } %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<%= link_to 'New Order', new_order_path %> <br>
+<% @orders.each do |order| %>
+  <% if order.payment.present? %>
+    <%= link_to 'View Payment', order_payment_path(order) %> <br>
+    <%= link_to 'Edit Payment', edit_order_payment_path(order)  %>
+  <% else %>
+    <%= link_to 'Add Payment', new_order_payment_path(order) %>
+  <% end %>
+<% end %>

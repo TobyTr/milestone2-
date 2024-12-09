@@ -1,0 +1,19 @@
+<h1>Order Details</h1>
+
+<p>
+  <strong>ID:</strong>
+  <%= @order.id %>
+</p>
+
+<p>
+  <strong>Total Price:</strong>
+  <%= number_to_currency(@order.total_price) %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @order.status %>
+</p>
+
+<%= link_to 'Edit', edit_order_path(@order) %> |
+<%= link_to 'Back to Orders', orders_path %>

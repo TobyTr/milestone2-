@@ -1,0 +1,10 @@
+<h1>Edit Build</h1>
+
+<%= bootstrap_form_with model: @build, method: :patch, url: build_path(@build), data: { turbo: false } do |f| %>
+    <%= f.text_field :name %>
+    <%= f.text_area :description %>
+    <%= f.check_box :published %>
+    <%= f.submit %>
+<% end %>
+
+<%= link_to 'Back', build_path(@build), class: "btn btn-secondary" %>
